@@ -2,29 +2,26 @@
   description = "My development environment";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
   };
   outputs =
     { self
     , nixpkgs
-    , flake-utils
     ,
     }:
-    flake-utils.lib.eachDefaultSystem
-      (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            stylua
-          ];
-        };
-      })
-    // {
+    let
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        f system pkgs);
+    in
+    {
       nixosModules = {
         dot013-environment = import ./configuration.nix;
         default = self.nixosModules.dot013-environment;
@@ -34,5 +31,12 @@
         default = self.homeManagerModules.dot013-environment;
       };
       homeManagerModule = self.homeManagerModules.dot013-environment;
+      devShells = forAllSystems (system: pkgs: {
+        default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            stylua
+          ];
+        };
+      });
     };
 }
