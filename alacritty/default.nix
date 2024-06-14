@@ -1,5 +1,6 @@
 { config
 , lib
+, pkgs
 , ...
 }:
 let
@@ -16,6 +17,10 @@ in
     };
   config = with lib;
     mkIf cfg.enable {
+      home.packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      ];
+
       programs.alacritty = {
         enable = mkDefault true;
         settings = {

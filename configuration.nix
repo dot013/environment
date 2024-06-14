@@ -36,5 +36,11 @@ in
                 LINK: ${device}
           '';
         };
+
+      fonts.fontconfig.enable = mkDefault true;
+      fonts.packages = with pkgs; [
+        fira-code
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      ];
     };
 }
