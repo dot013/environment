@@ -16,28 +16,21 @@
         pkgs = import nixpkgs {
           inherit system;
         };
-        nvim-wrapper = pkgs.writeShellScriptBin "nvim" ''
-          XDG_CONFIG_HOME=${toString ./.}
-          ${pkgs.neovim}/bin/nvim "$@"
-        '';
       in
       {
-        packages = {
-          nvim = nvim-wrapper;
-          default = self.packages.${system}.nvim;
-        };
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            (pkgs.writeShellScriptBin "nvim-dev" ''
-              ${self.packages.${system}.nvim}/bin/nvim "$@"
-            '')
             stylua
           ];
         };
       })
     // {
+      nixosModules = {
+        dot013-environment = import ./configuration.nix;
+        default = self.nixosModules.dot013-environment;
+      };
       homeManagerModules = {
-        dot013-environment = import ./module.nix;
+        dot013-environment = import ./home.nix;
         default = self.homeManagerModules.dot013-environment;
       };
       homeManagerModule = self.homeManagerModules.dot013-environment;
