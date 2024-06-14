@@ -6,4 +6,4 @@
 
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 XDG_CONFIG_HOME=$(dirname "$SCRIPT_DIR")
-nvim .
+nvim "$@"

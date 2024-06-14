@@ -1,6 +1,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+if not table.unpack then
+	table.unpack = unpack
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -15,10 +19,14 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+require("options")
+
 require("lazy").setup({
 	spec = "plugins",
 	change_detection = { notify = false },
 })
+
+require("remap")
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
