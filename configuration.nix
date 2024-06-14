@@ -37,6 +37,17 @@ in
           '';
         };
 
+      environment.sessionVariables = {
+        EDITOR = mkDefault "nvim";
+      };
+
+      environment.pathsToLink = [ " /share/zsh " ];
+
+      programs.zsh.enable = mkDefault true;
+
+      # So mason.nvim can work properly
+      programs.nix-ld.enable = mkDefault true;
+
       fonts.fontconfig.enable = mkDefault true;
       fonts.packages = with pkgs; [
         fira-code
