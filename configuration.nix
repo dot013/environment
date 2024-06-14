@@ -11,6 +11,10 @@ in
   options.dot013.environment = with lib;
     with lib.types; {
       enable = mkEnableOption "";
+      interception-tools.enable = mkOption {
+        type = bool;
+        default = true;
+      };
       interception-tools.device = mkOption {
         type = str;
       };
@@ -21,7 +25,7 @@ in
         let
           device = cfg.interception-tools.device;
         in
-        {
+        mkIf cfg.interception-tools.enable {
           enable = true;
           plugins = [ pkgs.interception-tools-plugins.caps2esc ];
           udevmonConfig = ''
