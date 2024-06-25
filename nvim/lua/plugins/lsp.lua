@@ -88,9 +88,6 @@ return {
 						},
 					},
 				}),
-				["emmet_ls"] = set_handler("emmet_ls", {
-					filetypes = { table.unpack(HTML_LIKE) },
-				}),
 				["gopls"] = set_handler("gopls", {
 					filetypes = { "templ", "go", "gomod", "gowork", "gotmpl" },
 				}),
