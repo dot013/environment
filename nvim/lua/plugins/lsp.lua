@@ -103,7 +103,10 @@ return {
 				["templ"] = function()
 					vim.filetype.add({ extension = { templ = "templ" } })
 					return set_handler("templ", {
-						filetypes = { table.unpack(HTML_LIKE) },
+						cmd = { "templ", "lsp" },
+						root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
+						settings = {},
+						filetypes = { "templ" },
 					})
 				end,
 			},
