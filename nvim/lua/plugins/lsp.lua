@@ -56,6 +56,7 @@ return {
 		require("fidget").setup()
 
 		local HTML_LIKE = { "astro", "html", "svelte", "templ", "vue" }
+		vim.filetype.add({ extension = { templ = "templ" } })
 
 		local set_handler = function(server_name, config)
 			return function()
@@ -89,7 +90,7 @@ return {
 					},
 				}),
 				["gopls"] = set_handler("gopls", {
-					filetypes = { "templ", "go", "gomod", "gowork", "gotmpl" },
+					filetypes = { "go", "gomod", "gowork", "gotmpl" },
 				}),
 				["html"] = set_handler("html", {
 					filetypes = { table.unpack(HTML_LIKE) },
@@ -100,15 +101,12 @@ return {
 				["unocss"] = set_handler("unocss", {
 					filetypes = { table.unpack(HTML_LIKE) },
 				}),
-				["templ"] = function()
-					vim.filetype.add({ extension = { templ = "templ" } })
-					return set_handler("templ", {
-						cmd = { "templ", "lsp" },
-						root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
-						settings = {},
-						filetypes = { "templ" },
-					})
-				end,
+				["templ"] = set_handler("templ", {
+					cmd = { "templ", "lsp" },
+					root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
+					settings = {},
+					filetypes = { "templ" },
+				}),
 			},
 		})
 	end,
