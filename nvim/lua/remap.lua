@@ -78,8 +78,8 @@ map("n", "j", "v:count == 0 ? 'gj' : 'j'", "", { expr = true, silent = true })
 
 -- Barbar -------------------------------
 
-map("n", "wc", "<cmd>BufferClose<cr>", "Buffer close", { noremap = true, silent = true })
-map("n", "wA", "<cmd>BufferCloseAllButCurrent<cr>", "Buffer close all but current", { noremap = true, silent = true })
+map("n", "bc", "<cmd>BufferClose<cr>", "Buffer close", { noremap = true, silent = true })
+map("n", "bA", "<cmd>BufferCloseAllButCurrent<cr>", "Buffer close all but current", { noremap = true, silent = true })
 
 -- Lsp ----------------------------------
 
