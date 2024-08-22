@@ -1,20 +1,19 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  cfg = config.dot013.environment.neovim;
-in
 {
-  imports = [ ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.dot013.environment.neovim;
+in {
+  imports = [];
   options.dot013.environment.neovim = with lib;
-    with lib.types; {
-      enable = mkOption {
-        type = bool;
-        default = true;
-      };
+  with lib.types; {
+    enable = mkOption {
+      type = bool;
+      default = true;
     };
+  };
   config = with lib;
     mkIf cfg.enable {
       programs.neovim = {
@@ -39,10 +38,11 @@ in
         alejandra
         shellharden
       ];
-
+      /*
       home.file."${config.xdg.configHome}/nvim" = {
         source = ./.;
         recursive = true;
       };
+      */
     };
 }
