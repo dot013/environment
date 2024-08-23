@@ -22,6 +22,7 @@ in {
         vimAlias = true;
         withNodeJs = true;
         defaultEditor = true;
+        package = pkgs.neovim-unwrapped;
       };
 
       home.sessionVariables = {
