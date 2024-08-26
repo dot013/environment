@@ -3,37 +3,60 @@ return {
 		"mfussenegger/nvim-dap",
 		dependencies = {
 			"leoluz/nvim-dap-go",
-			--[[ {
-				"Joakker/lua-json5",
-			}, ]]
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-neotest/nvim-nio",
 		},
 		lazy = false,
 		config = function()
-			local dap = require("dap")
-			local dapgo = require("dap-go")
-
-			-- require("dap.ext.vscode").json_decode = require("json5").parse
-
-			dapgo.setup()
-
 			local nmap = function(key, func, desc)
 				if desc then
-					desc = "[" .. key .. "] " .. desc
+					desc = "[" .. key .. "] Debugger: " .. desc
 				end
 				vim.keymap.set("n", key, func, { desc = desc })
 			end
 
-			nmap("<leader>xj", require("dap.ext.vscode").load_launchjs)
+			local dap = require("dap")
+			local dapgo = require("dap-go")
+			local dapvt = require("nvim-dap-virtual-text")
 
-			nmap("<leader>xb", dap.toggle_breakpoint)
-			nmap("<leader>xB", dap.set_breakpoint)
-			nmap("<leader>xc", dap.continue)
-			nmap("<leader>xo", dap.step_over)
-			nmap("<leader>xi", dap.step_into)
-			nmap("<leader>xO", dap.repl.open)
+			dapgo.setup()
+			dapvt.setup()
 
-			nmap("<leader>xh", require("dap.ui.widgets").hover)
-			nmap("<leader>xp", require("dap.ui.widgets").preview)
+			nmap("xj", require("dap.ext.vscode").load_launchjs, "Load .vscode/launch.json")
+
+			nmap("xb", dap.toggle_breakpoint, "Toggle breakpoint")
+			nmap("xB", dap.set_breakpoint, "Set breakpoint")
+			nmap("xc", dap.continue, "Continue")
+			nmap("xl", dap.run_last, "Run last")
+			nmap("xo", dap.step_over, "Step Over")
+			nmap("xi", dap.step_into, "Step Into")
+			nmap("xO", dap.repl.open, "Open Repl")
+			nmap("xX", dap.terminate, "Terminate debugger")
+			nmap("xC", dap.clear_breakpoints, "Clear all breakpoints")
+
+			nmap("xp", require("dap.ui.widgets").preview, "Preview")
+
+			local dapui = require("dapui")
+			dapui.setup()
+
+			nmap("xU", dapui.toggle, "Open debugger interface")
+			nmap("xK", function()
+				dapui.eval(nil, { enter = true })
+			end, "Eval var under cursor")
+
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
 		end,
 	},
 }
