@@ -28,4 +28,18 @@ return {
 	{
 		"laytan/cloak.nvim",
 	},
+	{
+		"folke/neodev.nvim",
+		lazy = false,
+		config = function()
+			require("neodev").setup({
+				library = {
+					plugins = {
+						"nvim-dap-ui",
+					},
+					type = true,
+				},
+			})
+		end,
+	},
 }
