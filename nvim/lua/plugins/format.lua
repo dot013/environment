@@ -1,19 +1,5 @@
 return {
 	{
-		"stevearc/conform.nvim",
-		opts = {
-			formatters_by_ft = {
-				nix = { "nixpkgs_fmt" },
-				go = { "goimports", "gofmt" },
-				templ = { "templ" },
-			},
-			format_on_save = {
-				timeout_ms = 1000,
-				lsp_fallback = true,
-			},
-		},
-	},
-	{
 		"mhartington/formatter.nvim",
 		config = function()
 			local formatter_util = require("formatter.util")
