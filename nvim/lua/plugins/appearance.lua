@@ -22,7 +22,7 @@ return {
 			},
 		},
 	},
-	{
+	--[[ {
 		"romgrk/barbar.nvim",
 		dependencies = {
 			"lewis6991/gitsigns.nvim",
@@ -33,7 +33,7 @@ return {
 		end,
 		opts = {},
 		lazy = false,
-	},
+	}, ]]
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		dependencies = {
@@ -42,7 +42,6 @@ return {
 			"MunifTanjim/nui.nvim",
 			"3rd/image.nvim",
 		},
-		lazy = false,
 		opts = {
 			closes_if_last_window = true,
 			window = {
