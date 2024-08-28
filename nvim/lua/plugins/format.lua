@@ -15,15 +15,15 @@ return {
 					go = {
 						function()
 							if vim.fn.executable("gofumpt") == 1 then
-								return require("formatter.filetypes.go").gofumpt
+								return require("formatter.filetypes.go").gofumpt()
 							end
-							return require("formatter.filetypes.go").gofmt
+							return require("formatter.filetypes.go").gofmt()
 						end,
 						function()
 							if vim.fn.executable("golines") == 1 then
-								return require("formatter.filetypes.go").golines
+								return require("formatter.filetypes.go").golines()
 							elseif vim.fn.executable("goimports") == 1 then
-								return require("formatter.filetypes.go").goimports
+								return require("formatter.filetypes.go").goimports()
 							end
 							return nil
 						end,
