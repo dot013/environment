@@ -7,7 +7,6 @@ return {
 			"theHamsta/nvim-dap-virtual-text",
 			"nvim-neotest/nvim-nio",
 		},
-		lazy = false,
 		config = function()
 			local nmap = function(key, func, desc)
 				if desc then
