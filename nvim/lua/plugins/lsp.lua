@@ -100,6 +100,11 @@ return {
 					}),
 					["gopls"] = set_handler("gopls", {
 						filetypes = { "go", "gomod", "gowork", "gotmpl" },
+						settings = {
+							gopls = {
+								gofumpt = vim.fn.executable("gofumpt") == 1,
+							},
+						},
 					}),
 					["html"] = set_handler("html", {
 						filetypes = { table.unpack(HTML_LIKE) },
