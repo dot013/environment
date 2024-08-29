@@ -22,25 +22,18 @@ return {
 			dapgo.setup()
 			dapvt.setup()
 
-			nmap("xj", require("dap.ext.vscode").load_launchjs, "Load .vscode/launch.json")
-
-			nmap("xb", dap.toggle_breakpoint, "Toggle breakpoint")
-			nmap("xB", dap.set_breakpoint, "Set breakpoint")
-			nmap("xc", dap.continue, "Continue")
-			nmap("xl", dap.run_last, "Run last")
-			nmap("xo", dap.step_over, "Step Over")
-			nmap("xi", dap.step_into, "Step Into")
-			nmap("xO", dap.repl.open, "Open Repl")
-			nmap("xX", dap.terminate, "Terminate debugger")
-			nmap("xC", dap.clear_breakpoints, "Clear all breakpoints")
-
-			nmap("xp", require("dap.ui.widgets").preview, "Preview")
+			nmap("<leader>b", dap.toggle_breakpoint, "Toggle breakpoint")
+			nmap("<leader>B", dap.set_breakpoint, "Set breakpoint")
+			nmap("<leader>x", dap.continue, "Continue")
+			nmap("<leader>rl", dap.run_last, "Run last")
+			nmap("<leader>X", dap.terminate, "Terminate debugger")
+			nmap("<leader>C", dap.clear_breakpoints, "Clear all breakpoints")
 
 			local dapui = require("dapui")
 			dapui.setup()
 
-			nmap("xU", dapui.toggle, "Open debugger interface")
-			nmap("xK", function()
+			nmap("<leader>bI", dapui.toggle, "Open debugger interface")
+			nmap("<leader>K", function()
 				dapui.eval(nil, { enter = true })
 			end, "Eval var under cursor")
 
