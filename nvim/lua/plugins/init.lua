@@ -4,6 +4,7 @@ return {
 		lazy = false,
 		event = { "InsertLeave", "TextChanged" },
 		opts = {
+			debouce_delay = 1000,
 			condition = function(buf)
 				if vim.bo[buf].filetype == "harpoon" then
 					return false
