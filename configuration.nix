@@ -17,7 +17,10 @@ in {
     interception-tools.device = mkOption {
       type = str;
     };
-    mosh.enable = mkEnableOption "";
+    mosh.enable = mkOption {
+      type = bool;
+      default = true;
+    };
   };
   config = with lib;
     mkIf cfg.enable {
