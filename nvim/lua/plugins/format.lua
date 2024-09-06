@@ -12,6 +12,16 @@ return {
 				logging = true,
 				log_level = vim.log.levels.WARN,
 				filetype = {
+					typescriptreact = {
+						function()
+							if vim.fn.executable("prettierd") == 1 then
+								return require("formatter.filetypes.javascriptreact").prettierd()
+							elseif vim.fn.executable("prettier") == 1 then
+								return require("formatter.filetypes.javascriptreact").prettier()
+							end
+							return nil
+						end,
+					},
 					go = {
 						function()
 							if vim.fn.executable("gofumpt") == 1 then
