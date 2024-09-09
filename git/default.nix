@@ -38,6 +38,9 @@ in {
           };
           userEmail = "contact@guz.one";
           userName = "Gustavo L de Mello (Guz)";
+          extraConfig = {
+            credential.helper = "store";
+          };
         };
 
         programs.gpg = mkIf cfg.gpgsign {
