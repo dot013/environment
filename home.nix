@@ -12,6 +12,7 @@ in {
     ./git
     ./nvim
     ./starship
+    ./ssh
     ./tmux
     ./zsh
   ];
