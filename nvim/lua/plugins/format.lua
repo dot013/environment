@@ -22,6 +22,16 @@ return {
 							return nil
 						end,
 					},
+					json = {
+						function()
+							if vim.fn.executable("prettierd") == 1 then
+								return require("formatter.filetypes.json").prettierd()
+							elseif vim.fn.executable("prettier") == 1 then
+								return require("formatter.filetypes.json").prettier()
+							end
+							return nil
+						end,
+					},
 					go = {
 						function()
 							if vim.fn.executable("gofumpt") == 1 then
