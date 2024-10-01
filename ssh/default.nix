@@ -68,7 +68,7 @@ in {
         };
         identity = mkOption {
           type = str;
-          default = "${config.home.homeDirectory}/.ssh/fighter";
+          default = "${config.home.homeDirectory}/.ssh/figther";
         };
         mosh = mkOption {
           type = bool;
