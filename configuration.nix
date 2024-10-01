@@ -14,8 +14,9 @@ in {
       type = bool;
       default = true;
     };
-    interception-tools.device = mkOption {
-      type = str;
+    interception-tools.devices = mkOption {
+      type = listOf str;
+      default = [];
     };
     mosh.enable = mkOption {
       type = bool;
@@ -24,20 +25,19 @@ in {
   };
   config = with lib;
     mkIf cfg.enable {
-      services.interception-tools = let
-        device = cfg.interception-tools.device;
-      in
-        mkIf cfg.interception-tools.enable {
-          enable = true;
-          plugins = [pkgs.interception-tools-plugins.caps2esc];
-          udevmonConfig = ''
-            - JOB: "${pkgs.interception-tools}/bin/intercept -g ${device} | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 2 | ${pkgs.interception-tools}/bin/uinput -d ${device}"
-              DEVICE:
-                EVENTS:
-                  EV_KEY: [[KEY_CAPSLOCK, KEY_ESC]]
-                LINK: ${device}
-          '';
-        };
+      services.interception-tools = mkIf cfg.interception-tools.enable {
+        enable = true;
+        plugins = [pkgs.interception-tools-plugins.caps2esc];
+        udevmonConfig = with builtins;
+          concatStringsSep "\n" (map (device: ''
+              - JOB: "${pkgs.interception-tools}/bin/intercept -g ${device} | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 2 | ${pkgs.interception-tools}/bin/uinput -d ${device}"
+                DEVICE:
+                  EVENTS:
+                    EV_KEY: [[KEY_CAPSLOCK, KEY_ESC]]
+                  LINK: ${device}
+            '')
+            cfg.interception-tools.devices);
+      };
 
       programs.mosh = mkIf cfg.mosh.enable {
         enable = true;
