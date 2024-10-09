@@ -40,6 +40,8 @@ in {
           userName = "Gustavo L de Mello (Guz)";
           extraConfig = {
             credential.helper = "store";
+            http.proxy = "";
+            https.proxy = "";
           };
         };
 
