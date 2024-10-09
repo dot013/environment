@@ -8,6 +8,26 @@ return {
 				group = "__formatter__",
 				command = ":FormatWrite",
 			})
+
+			local js = {
+				function()
+					if vim.fn.executable("prettierd") == 1 then
+						return require("formatter.filetypes.javascript").prettierd()
+					elseif vim.fn.executable("prettier") == 1 then
+						return require("formatter.filetypes.javascript").prettier()
+					end
+					return nil
+				end,
+				function()
+					if vim.fn.executable("eslint_d") == 1 then
+						return require("formatter.filetypes.javascript").eslint_d()
+						-- elseif vim.fn.executable("prettier") == 1 then
+						-- 	return require("formatter.filetypes.javascript").prettier()
+					end
+					return nil
+				end,
+			}
+
 			require("formatter").setup({
 				logging = true,
 				log_level = vim.log.levels.WARN,
@@ -48,6 +68,15 @@ return {
 							return nil
 						end,
 					},
+					templ = {
+						function()
+							if vim.fn.executable("templ") == 1 then
+								return require("formatter.filetypes.templ").templfmt()
+							end
+							return nil
+						end,
+					},
+
 					lua = {
 						require("formatter.filetypes.lua").stylua,
 						function()
@@ -64,9 +93,11 @@ return {
 							}
 						end,
 					},
+
 					nix = {
 						require("formatter.filetypes.nix").alejandra,
 					},
+
 					sh = {
 						function()
 							if vim.fn.executable("shfmt") == 1 then
@@ -84,6 +115,7 @@ return {
 							return nil
 						end,
 					},
+
 					["*"] = {
 						require("formatter.filetypes.any").remove_trailing_whitespace,
 					},
