@@ -33,6 +33,7 @@ return {
 		nmap("fr", builtin.oldfiles, "Find recent files")
 		nmap("ff", builtin.find_files, "Find files")
 		nmap("fw", builtin.grep_string, "Find word")
+		nmap("<leader>fw", "<cmd>Telescope live_grep<cr>", "Find word in all files")
 		nmap("gf", builtin.git_files, "Git files")
 		nmap("rs", builtin.resume, "Resume search")
 

@@ -38,6 +38,7 @@ in {
         nixpkgs-lint
         alejandra
         shellharden
+        ripgrep
       ];
       /*
       home.file."${config.xdg.configHome}/nvim" = {
