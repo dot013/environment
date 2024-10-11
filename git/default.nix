@@ -37,7 +37,7 @@ in {
             signByDefault = true;
           };
           userEmail = "contact@guz.one";
-          userName = "Guz";
+          userName = "Gustavo L de Mello (Guz)";
           extraConfig = {
             credential.helper = "store";
             http.proxy = "";
