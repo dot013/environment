@@ -50,7 +50,7 @@ map("v", "<leader>d", '"_d')
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Turn file into a Linux executable
-map("n", "<leader>X", "<cmd>!chmod +x %<CR>", "Turn into executable", { silent = true })
+map("n", "<leader>mod", "<cmd>!chmod +x %<CR>", "Turn into executable", { silent = true })
 
 -- --------------------------------------
 
