@@ -153,4 +153,33 @@ return {
 			},
 		},
 	},
+	{
+		"MunifTanjim/eslint.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"nvimtools/none-ls.nvim",
+		},
+		config = function()
+			local null = require("null-ls")
+			local eslint = require("eslint")
+
+			null.setup()
+
+			if vim.fn.executable("eslint") == 1 or vim.fn.executable("eslint_d") then
+				eslint.setup({
+					bin = (function()
+						if vim.fn.executable("eslint_d") == 1 then
+							return "eslint_d"
+						end
+						return "eslint"
+					end)(),
+					diagnostics = {
+						enable = true,
+						report_unised_disable_directives = false,
+						run_on = "type",
+					},
+				})
+			end
+		end,
+	},
 }
