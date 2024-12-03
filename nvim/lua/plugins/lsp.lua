@@ -89,14 +89,9 @@ return {
 							capabilities = capabilities,
 						})
 					end,
-					["lua_ls"] = set_handler("lua_ls", {
-						Lua = {
-							workspace = { checkThirdParty = false },
-							telemetry = { enable = false },
-							diagnostics = {
-								globals = { "vim", "it", "describe", "before_each", "after_each" },
-							},
-						},
+					["denols"] = set_handler("denols", {
+						root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc"),
+						single_file_support = false,
 					}),
 					["gopls"] = set_handler("gopls", {
 						filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -115,11 +110,24 @@ return {
 					["unocss"] = set_handler("unocss", {
 						filetypes = { table.unpack(HTML_LIKE) },
 					}),
+					["lua_ls"] = set_handler("lua_ls", {
+						Lua = {
+							workspace = { checkThirdParty = false },
+							telemetry = { enable = false },
+							diagnostics = {
+								globals = { "vim", "it", "describe", "before_each", "after_each" },
+							},
+						},
+					}),
 					["templ"] = set_handler("templ", {
 						cmd = { "templ", "lsp" },
 						root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
 						settings = {},
 						filetypes = { "templ" },
+					}),
+					["ts_ls"] = set_handler("ts_ls", {
+						root_dir = require("lspconfig.util").root_pattern("package.json"),
+						single_file_support = false,
 					}),
 				},
 			})
