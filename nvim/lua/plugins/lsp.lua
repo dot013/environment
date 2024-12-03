@@ -162,19 +162,18 @@ return {
 		},
 	},
 	{
-		"MunifTanjim/eslint.nvim",
+		"nvimtools/none-ls.nvim",
 		dependencies = {
 			"neovim/nvim-lspconfig",
-			"nvimtools/none-ls.nvim",
+			"MunifTanjim/eslint.nvim",
 		},
 		config = function()
 			local null = require("null-ls")
-			local eslint = require("eslint")
 
 			null.setup()
 
-			if vim.fn.executable("eslint") == 1 or vim.fn.executable("eslint_d") then
-				eslint.setup({
+			if vim.fn.executable("eslint") == 1 or vim.fn.executable("eslint_d") == 1 then
+				require("eslint").setup({
 					bin = (function()
 						if vim.fn.executable("eslint_d") == 1 then
 							return "eslint_d"
