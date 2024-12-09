@@ -3,8 +3,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-
-    dot013-nvim.url = "git+https://forge.capytal.company/dot013/nvim";
   };
   outputs = {
     self,
@@ -31,7 +29,7 @@
       default = self.nixosModules.dot013-environment;
     };
     homeManagerModules = {
-      dot013-environment = import ./home.nix {inherit inputs;};
+      dot013-environment = import ./home.nix;
       default = self.homeManagerModules.dot013-environment;
     };
     homeManagerModule = self.homeManagerModules.dot013-environment;

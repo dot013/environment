@@ -10,7 +10,6 @@ in {
     ./direnv
     ./lf
     ./git
-    ./nvim
     ./starship
     ./ssh
     ./tmux
