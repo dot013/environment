@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   cfg = config.dot013.environment.neovim;
@@ -22,7 +23,7 @@ in {
         vimAlias = true;
         withNodeJs = true;
         defaultEditor = true;
-        package = pkgs.neovim-unwrapped;
+        package = inputs.dot013-nvim.packages.${pkgs.system}.default;
       };
 
       home.sessionVariables = {
